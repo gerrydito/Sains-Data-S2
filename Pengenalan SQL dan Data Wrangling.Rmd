@@ -1,0 +1,60 @@
+---
+title: "Pengenalan SQL dan Data Wrangling"
+author: "gerryditto"
+date: "9/6/2020"
+output: 
+  prettydoc::html_pretty:
+    theme: "architect"
+    highlight: github
+---
+Package yang perlu diinstall adalah sebagai berikut:
+```{r}
+# install.pacakages("tidyverse")
+# install.pacakages("DBI")
+# install.pacakages("RMySQL")
+#optional
+# install.pacakages("dbplyr")
+```
+catatan: hilangkan tanda # untuk menginstall
+
+## Outline Praktikum
+Berikut dibawah ini adalah topik praktikum
+1. Pengantar
+2. Mengoneksikan antara database SQL dan R
+3. Hubungan SQL dan dplyr 
+4. Data Wrangling
+## Pengantar
+
+Source Database yang sering digunakan beserta R package untuk mengoneksikan dengan database.
+
+1. Package RMySQL mengoneksikan ke database MySQL
+2. Package RPostgres mengoneksikan ke database Postgres.
+3. Package RSQLite mengoneksikan ke SQLite database.
+4. Package bigrquery mengoneksikan ke Google’s BigQuery.
+
+## Memanggil Package
+```{r}
+library(tidyverse)
+#library(dbplyr) optional
+```
+
+## Mengoneksikan antara database SQL dan R
+```{r}
+mammals <- DBI::dbConnect(RSQLite::SQLite(), "portal_mammals.sqlite")
+DBI::dbListTables(mammals)
+```
+`dbListTables` digunakan untuk melihat tabel/data apa saja yang ada di dalam SQL
+
+## Including Plots
+
+
+```{r}
+tbl(mammals,sql("SELECT year, species_id, plot_id FROM surveys"))
+```
+
+Syntax diatas kita bisa melakukan querry menggunakan sintaks bahasa SQL. Fungsi `tbl` berfungi mengekstrak tabel yang ada di file sql. Sementara itu, fungsi `sql` berguna untuk menuliskan sintaks bahasa SQL.  
+
+
+## Hubungan SQL dan dplyr
+
+## Data Wrangling
